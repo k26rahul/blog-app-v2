@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Your Cart</h1>
+  <ul>
+    {% for p in products %}
+      <li>{{ p.title }} - ${{ p.price }}</li>
+    {% endfor %}
+  </ul>
+  <h3>Total: ${{ "%.2f"|format(total) }}</h3>
+  <hr>
+  <h3>Checkout</h3>
+  <input type="text" placeholder="Mobile Number (e.g., 555-0199)">
+  <button onclick="alert('Payment successful!')">Proceed to Payment</button>
+{% endblock %}

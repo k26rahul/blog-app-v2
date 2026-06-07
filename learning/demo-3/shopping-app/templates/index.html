@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Welcome to the Demo Store</h1>
+  {% if recent %}
+    <div style="background: #f4f4f4; padding: 10px; margin-bottom: 15px;">
+      <h3 style="margin-top: 0;">Recommended: Pick Up Where You Left Off</h3>
+      <ul>
+        {% for item in recent %}
+          <li>
+            <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
+            <em style="color: gray; font-size: 0.8em;">({{ item.time | timeago }})</em>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {% if frequent %}
+    <div style="background: #eef8ff; padding: 10px; margin-bottom: 20px;">
+      <h3 style="margin-top: 0;">Your Most Viewed Items</h3>
+      <ul>
+        {% for item in frequent %}
+          <li>
+            <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
+            <em style="color: gray; font-size: 0.8em;">({{ item.count }} visits)</em>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <h2>All Stores</h2>
+  <ul>
+    {% for store in stores %}
+      <li><a href="/store/{{ store }}">{{ store | capitalize }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

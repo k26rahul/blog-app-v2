@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>{{ category | capitalize }} Products</h1>
+  <div style="display: flex; gap: 20px;">
+    {% if recent %}
+      <div style="background: #fff3cd;
+                  padding: 10px;
+                  border: 1px solid #ffeeba;
+                  flex: 1">
+        <h4 style="margin-top: 0;">Recently Viewed in {{ category | capitalize }}</h4>
+        <ul style="padding-left: 20px; font-size: 0.9em;">
+          {% for item in recent %}
+            <li>
+              <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
+              <span style="color: gray;">({{ item.time | timeago }})</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if frequent %}
+      <div style="background: #d4edda;
+                  padding: 10px;
+                  border: 1px solid #c3e6cb;
+                  flex: 1">
+        <h4 style="margin-top: 0;">Top Visited in {{ category | capitalize }}</h4>
+        <ul style="padding-left: 20px; font-size: 0.9em;">
+          {% for item in frequent %}
+            <li>
+              <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
+              <span style="color: gray;">({{ item.count }} visits)</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+  <hr>
+  <h3>All Items</h3>
+  <ul>
+    {% for p in products %}
+      <li><a href="/product/{{ p.id }}/{{ p.slug }}">{{ p.title }} - ${{ p.price }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Analytics Dashboard</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css"
+              rel="stylesheet" />
+        <style>
+            body {
+                font-family: sans-serif;
+                padding: 20px;
+            }
+
+            .gridjs-td {
+                word-break: break-all;
+            }
+
+            /* Ensure long URLs break correctly */
+            .stat-box {
+                border: 1px solid #ccc;
+                padding: 15px;
+                margin-bottom: 20px;
+                display: inline-block;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Welcome Admin</h1>
+            <p style="color: blue; font-weight: bold;">{{ statusMessage }}</p>
+
+            <div class="stat-box">
+                <h3>Total Visitors</h3>
+                <h2>{{ stats.total_visitors }}</h2>
+            </div>
+            <div class="stat-box">
+                <h3>Total Visits</h3>
+                <h2>{{ stats.total_visits }}</h2>
+            </div>
+
+            <h3>Visits by Store</h3>
+            <div id="store-table"></div>
+
+            <h3>Top 10 Products</h3>
+            <div id="products-table"></div>
+
+            <h3>Last 10 Visitors</h3>
+            <div id="visitors-table"></div>
+
+            <h3>Last 50 Visits</h3>
+            <div id="visits-table"></div>
+        </div>
+
+        <script>
+            const {
+                createApp
+            } = Vue;
+
+            createApp({
+                data() {
+                    return {
+                        stats: {
+                            total_visitors: 0,
+                            total_visits: 0
+                        },
+                        timer: 5,
+                        statusMessage: 'Loading...',
+                        storeGrid: null,
+                        productsGrid: null,
+                        visitorsGrid: null,
+                        visitsGrid: null
+                    }
+                },
+                methods: {
+                    async fetchData() {
+                        this.statusMessage = 'Now refreshing...';
+                        const res = await fetch('/api/analytics');
+                        this.stats = await res.json();
+                        this.updateTables();
+                        this.statusMessage = 'Refreshed!';
+                        setTimeout(() => {
+                            this.timer = 5;
+                        }, 1000);
+                    },
+                    updateTables() {
+                        const storeData = this.stats.visits_by_store.map(s => [s.store, s.visits]);
+                        if (!this.storeGrid) this.storeGrid = new gridjs.Grid({
+                            columns: ["Store", "Total Visits"],
+                            data: storeData
+                        }).render(document.getElementById('store-table'));
+                        else this.storeGrid.updateConfig({
+                            data: storeData
+                        }).forceRender();
+
+                        const prodData = this.stats.top_products.map(p => [p.title, p.visits]);
+                        if (!this.productsGrid) this.productsGrid = new gridjs.Grid({
+                            columns: ["Product", "Total Visits"],
+                            data: prodData
+                        }).render(document.getElementById('products-table'));
+                        else this.productsGrid.updateConfig({
+                            data: prodData
+                        }).forceRender();
+
+                        const visitorData = this.stats.last_visitors.map(v => [v.id, v.uuid, v.time]);
+                        if (!this.visitorsGrid) this.visitorsGrid = new gridjs.Grid({
+                            columns: ["ID", "UUID", "First Seen"],
+                            data: visitorData
+                        }).render(document.getElementById('visitors-table'));
+                        else this.visitorsGrid.updateConfig({
+                            data: visitorData
+                        }).forceRender();
+
+                        const visitData = this.stats.last_visits.map(v => [v.id, v.vid, v.url, v.type, v.time]);
+                        if (!this.visitsGrid) this.visitsGrid = new gridjs.Grid({
+                            columns: ["Visit ID", "Visitor ID", "URL", "Type", "Time"],
+                            data: visitData
+                        }).render(document.getElementById('visits-table'));
+                        else this.visitsGrid.updateConfig({
+                            data: visitData
+                        }).forceRender();
+                    },
+                    startTimer() {
+                        setInterval(() => {
+                            if (this.timer > 0) {
+                                this.statusMessage = `Refreshing in ${this.timer}...`;
+                                this.timer--;
+                            } else if (this.timer === 0) {
+                                this.fetchData();
+                            }
+                        }, 1000);
+                    }
+                },
+                mounted() {
+                    this.fetchData();
+                    this.startTimer();
+                }
+            }).mount('#app');
+        </script>
+    </body>
+</html>

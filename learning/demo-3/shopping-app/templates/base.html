@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo Store</title>
+  </head>
+  <body style="font-family: sans-serif;
+               max-width: 800px;
+               margin: auto;
+               padding: 20px">
+    <nav>
+      <a href="/">Home</a> | <a href="/cart">Cart</a> | <a href="/analytics" target="_blank">Analytics</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+    <hr>
+    <footer style="color: gray; font-size: 0.8em;">
+      {% if g.is_new_visitor %}
+        <p>Welcome new visitor!</p>
+      {% else %}
+        <p>Hello again! Welcome back.</p>
+      {% endif %}
+      <p>Debug Tracking UUID: {{ g.tracking_uuid }}</p>
+    </footer>
+  </body>
+</html>

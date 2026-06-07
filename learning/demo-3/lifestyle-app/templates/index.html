@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div id="for-you-section"
+       style="display: none;
+              background: #eef8ff;
+              padding: 15px;
+              border: 1px solid #bce8f1;
+              margin-bottom: 20px">
+    <h2 style="margin-top: 0;">For You</h2>
+    <div style="display: flex; gap: 20px;">
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 10px 0;">Based on Categories</h4>
+        <ul id="cat-articles">
+        </ul>
+      </div>
+      <div style="flex: 1;">
+        <h4 style="margin: 0 0 10px 0;">Based on Brands</h4>
+        <ul id="brand-articles">
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>Latest Posts</h2>
+  <ul>
+    {% for article in articles %}
+      <li><a href="/post/{{ article.slug }}">{{ article.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <script>
+      const allArticles = {
+          {
+              articles_json | tojson | safe
+          }
+      };
+
+      async function fetchInterests() {
+          try {
+              const response = await fetch('http://127.0.0.1:5000/api/user_interests', {
+                  credentials: 'include'
+              });
+              const interests = await response.json();
+
+              if (interests.categories.length > 0 || interests.brands.length > 0) {
+                  document.getElementById('for-you-section').style.display = 'block';
+
+                  const catMatches = allArticles.filter(a => a.categories.some(c => interests.categories.includes(c))).slice(0, 3);
+                  document.getElementById('cat-articles').innerHTML = catMatches.length ?
+                      catMatches.map(a => `<li><a href="/post/${a.slug}">${a.title}</a></li>`).join('') :
+                      "<li>No matches</li>";
+
+                  const brandMatches = allArticles.filter(a => a.brands.some(b => interests.brands.includes(b))).slice(0, 3);
+                  document.getElementById('brand-articles').innerHTML = brandMatches.length ?
+                      brandMatches.map(a => `<li><a href="/post/${a.slug}">${a.title}</a></li>`).join('') :
+                      "<li>No matches</li>";
+              }
+          } catch (e) {
+              console.error("Ad targeting blocked or server offline", e);
+          }
+      }
+      fetchInterests();
+  </script>
+{% endblock %}

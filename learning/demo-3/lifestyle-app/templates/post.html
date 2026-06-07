@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ article.title }}</h2>
+  <p style="color: gray;">
+    Tags:
+    {% for c in article.target_categories %}
+      {{ c.name }}
+      {% if not loop.last %},{% endif %}
+    {% endfor %}
+    |
+    Brands:
+    {% for b in article.target_brands %}
+      {{ b.name }}
+      {% if not loop.last %},{% endif %}
+    {% endfor %}
+  </p>
+  <p>{{ article.content }}</p>
+  <hr>
+  <div style="background: #fff3cd;
+              padding: 15px;
+              border-left: 4px solid #ffeeba">
+    <strong>Sponsored:</strong> Looking to upgrade your setup?
+    <a href="{{ article.affiliate_link }}">Click here to view our recommended products!</a>
+  </div>
+{% endblock %}

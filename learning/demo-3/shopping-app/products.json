@@ -1,0 +1,706 @@
+[
+  {
+    "title": "Organic Apples",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 4.99,
+    "description": "Fresh organic apples."
+  },
+  {
+    "title": "Whole Wheat Bread",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 3.49,
+    "description": "Sliced whole wheat bread."
+  },
+  {
+    "title": "Almond Milk",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 3.99,
+    "description": "Unsweetened almond milk."
+  },
+  {
+    "title": "Brown Rice",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 5.99,
+    "description": "Long grain brown rice."
+  },
+  {
+    "title": "Peanut Butter",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 4.5,
+    "description": "Creamy peanut butter."
+  },
+  {
+    "title": "Organic Bananas",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 1.99,
+    "description": "Bunch of organic bananas."
+  },
+  {
+    "title": "Greek Yogurt",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 5.49,
+    "description": "Plain greek yogurt."
+  },
+  {
+    "title": "Rolled Oats",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 4.29,
+    "description": "Old fashioned rolled oats."
+  },
+  {
+    "title": "Green Tea",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 6.99,
+    "description": "Organic green tea bags."
+  },
+  {
+    "title": "Olive Oil",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 9.99,
+    "description": "Extra virgin olive oil."
+  },
+  {
+    "title": "Sea Salt",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 2.99,
+    "description": "Coarse sea salt."
+  },
+  {
+    "title": "Black Beans",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 1.49,
+    "description": "Canned black beans."
+  },
+  {
+    "title": "Cheddar Cheese",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 4.99,
+    "description": "Sharp cheddar cheese block."
+  },
+  {
+    "title": "Orange Juice",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 3.99,
+    "description": "100% pure orange juice."
+  },
+  {
+    "title": "Baby Spinach",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 3.49,
+    "description": "Fresh baby spinach leaves."
+  },
+  {
+    "title": "Cherry Tomatoes",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 2.99,
+    "description": "Pint of cherry tomatoes."
+  },
+  {
+    "title": "Raw Honey",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 7.99,
+    "description": "Organic raw honey."
+  },
+  {
+    "title": "Penne Pasta",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 1.99,
+    "description": "Dry penne pasta."
+  },
+  {
+    "title": "Tomato Sauce",
+    "brand": "Nature Farm",
+    "category": "grocery",
+    "price": 2.49,
+    "description": "Basil tomato pasta sauce."
+  },
+  {
+    "title": "Coffee Beans",
+    "brand": "FreshCo",
+    "category": "grocery",
+    "price": 12.99,
+    "description": "Dark roast whole bean coffee."
+  },
+
+  {
+    "title": "Cotton T-Shirt",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 15.99,
+    "description": "Soft 100% cotton t-shirt."
+  },
+  {
+    "title": "Denim Jeans",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 49.99,
+    "description": "Slim fit denim jeans."
+  },
+  {
+    "title": "Zip-Up Hoodie",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 35.0,
+    "description": "Comfortable fleece hoodie."
+  },
+  {
+    "title": "Leather Jacket",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 120.0,
+    "description": "Faux leather biker jacket."
+  },
+  {
+    "title": "Running Socks",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 12.5,
+    "description": "Pack of 6 athletic socks."
+  },
+  {
+    "title": "Chino Pants",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 45.0,
+    "description": "Classic fit chino pants."
+  },
+  {
+    "title": "V-Neck Sweater",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 29.99,
+    "description": "Lightweight knit sweater."
+  },
+  {
+    "title": "Summer Dress",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 39.99,
+    "description": "Floral print summer dress."
+  },
+  {
+    "title": "Polo Shirt",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 22.0,
+    "description": "Short sleeve polo shirt."
+  },
+  {
+    "title": "Cargo Shorts",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 25.0,
+    "description": "Cotton cargo shorts with pockets."
+  },
+  {
+    "title": "Winter Coat",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 85.0,
+    "description": "Insulated winter parka."
+  },
+  {
+    "title": "Workout Leggings",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 30.0,
+    "description": "High-waisted athletic leggings."
+  },
+  {
+    "title": "Beanie Hat",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 15.0,
+    "description": "Knit winter beanie."
+  },
+  {
+    "title": "Silk Tie",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 20.0,
+    "description": "100% silk formal tie."
+  },
+  {
+    "title": "Graphic Tee",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 18.0,
+    "description": "Vintage print graphic t-shirt."
+  },
+  {
+    "title": "Flannel Shirt",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 32.0,
+    "description": "Plaid cotton flannel shirt."
+  },
+  {
+    "title": "Sweatpants",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 28.0,
+    "description": "Fleece lined jogger sweatpants."
+  },
+  {
+    "title": "Denim Jacket",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 55.0,
+    "description": "Classic blue denim jacket."
+  },
+  {
+    "title": "Swim Trunks",
+    "brand": "BasicWear",
+    "category": "clothing",
+    "price": 24.0,
+    "description": "Quick-dry swimming trunks."
+  },
+  {
+    "title": "Puffer Vest",
+    "brand": "UrbanStyle",
+    "category": "clothing",
+    "price": 40.0,
+    "description": "Lightweight quilted puffer vest."
+  },
+
+  {
+    "title": "Wireless Mouse",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 25.5,
+    "description": "Ergonomic wireless optical mouse."
+  },
+  {
+    "title": "Bluetooth Headphones",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 89.99,
+    "description": "Over-ear wireless headphones."
+  },
+  {
+    "title": "Mechanical Keyboard",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 65.0,
+    "description": "RGB mechanical gaming keyboard."
+  },
+  {
+    "title": "4K Monitor",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 299.99,
+    "description": "27-inch 4K UHD monitor."
+  },
+  {
+    "title": "USB-C Hub",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 35.0,
+    "description": "7-in-1 USB-C multiport adapter."
+  },
+  {
+    "title": "Smartwatch",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 150.0,
+    "description": "Fitness tracking smartwatch."
+  },
+  {
+    "title": "Portable Charger",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 40.0,
+    "description": "20000mAh power bank."
+  },
+  {
+    "title": "Noise Cancelling Earbuds",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 120.0,
+    "description": "True wireless ANC earbuds."
+  },
+  {
+    "title": "Webcam 1080p",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 45.0,
+    "description": "HD webcam with microphone."
+  },
+  {
+    "title": "External SSD 1TB",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 110.0,
+    "description": "Portable solid state drive."
+  },
+  {
+    "title": "Gaming Controller",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 50.0,
+    "description": "Wireless PC gaming controller."
+  },
+  {
+    "title": "Wi-Fi Router",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 85.0,
+    "description": "Dual-band gigabit router."
+  },
+  {
+    "title": "HDMI Cable",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 12.0,
+    "description": "6ft 4K braided HDMI cable."
+  },
+  {
+    "title": "Tablet Stand",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 22.0,
+    "description": "Adjustable aluminum tablet holder."
+  },
+  {
+    "title": "USB Microphone",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 55.0,
+    "description": "Condenser microphone for streaming."
+  },
+  {
+    "title": "Smart Speaker",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 49.99,
+    "description": "Voice-controlled smart speaker."
+  },
+  {
+    "title": "Laptop Cooling Pad",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 28.0,
+    "description": "Cooling pad with 3 fans."
+  },
+  {
+    "title": "VR Headset",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 299.0,
+    "description": "Standalone virtual reality headset."
+  },
+  {
+    "title": "SD Card 128GB",
+    "brand": "TechPro",
+    "category": "electronics",
+    "price": 20.0,
+    "description": "High-speed micro SDXC card."
+  },
+  {
+    "title": "Wireless Charging Pad",
+    "brand": "ElectroMax",
+    "category": "electronics",
+    "price": 18.0,
+    "description": "15W fast wireless charger."
+  },
+
+  {
+    "title": "Ceramic Coffee Mug",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 12.99,
+    "description": "16oz ceramic coffee mug."
+  },
+  {
+    "title": "Throw Blanket",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 25.0,
+    "description": "Fleece decorative throw blanket."
+  },
+  {
+    "title": "Bath Towel Set",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 35.0,
+    "description": "4-piece cotton bath towels."
+  },
+  {
+    "title": "Scented Candle",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 15.0,
+    "description": "Lavender vanilla soy candle."
+  },
+  {
+    "title": "Non-Stick Frying Pan",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 28.5,
+    "description": "10-inch non-stick skillet."
+  },
+  {
+    "title": "Memory Foam Pillow",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 40.0,
+    "description": "Cooling memory foam bed pillow."
+  },
+  {
+    "title": "Bamboo Cutting Board",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 18.0,
+    "description": "Large bamboo wood cutting board."
+  },
+  {
+    "title": "Picture Frame",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 14.0,
+    "description": "8x10 wooden photo frame."
+  },
+  {
+    "title": "Stainless Trash Can",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 45.0,
+    "description": "Step-on stainless steel trash can."
+  },
+  {
+    "title": "Area Rug",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 89.0,
+    "description": "5x7 geometric area rug."
+  },
+  {
+    "title": "Desk Lamp",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 22.0,
+    "description": "LED adjustable desk lamp."
+  },
+  {
+    "title": "Ceramic Plant Pot",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 16.5,
+    "description": "Indoor planter with drainage."
+  },
+  {
+    "title": "Wine Glass Set",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 24.0,
+    "description": "Set of 4 crystal wine glasses."
+  },
+  {
+    "title": "Blackout Curtains",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 32.0,
+    "description": "Room darkening window panels."
+  },
+  {
+    "title": "Silicone Spatula Set",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 15.0,
+    "description": "Heat resistant kitchen spatulas."
+  },
+  {
+    "title": "Decorative Vase",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 28.0,
+    "description": "Modern ceramic flower vase."
+  },
+  {
+    "title": "Laundry Basket",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 20.0,
+    "description": "Collapsible fabric laundry hamper."
+  },
+  {
+    "title": "Wall Clock",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 18.0,
+    "description": "Silent analog wall clock."
+  },
+  {
+    "title": "Food Storage Containers",
+    "brand": "HomeEssentials",
+    "category": "home-decor",
+    "price": 30.0,
+    "description": "10-piece glass container set."
+  },
+  {
+    "title": "Soap Dispenser",
+    "brand": "CozyLiving",
+    "category": "home-decor",
+    "price": 12.0,
+    "description": "Glass liquid soap pump."
+  },
+
+  {
+    "title": "Building Blocks Set",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 35.0,
+    "description": "500-piece colorful brick set."
+  },
+  {
+    "title": "Remote Control Car",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 45.0,
+    "description": "High-speed RC buggy."
+  },
+  {
+    "title": "Puzzle 1000 Pieces",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 18.0,
+    "description": "Landscape jigsaw puzzle."
+  },
+  {
+    "title": "Superhero Action Figure",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 15.0,
+    "description": "Articulated hero action figure."
+  },
+  {
+    "title": "Strategy Board Game",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 25.0,
+    "description": "Family tabletop strategy game."
+  },
+  {
+    "title": "Stuffed Animal Bear",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 22.0,
+    "description": "Plush teddy bear toy."
+  },
+  {
+    "title": "Modeling Clay",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 12.0,
+    "description": "Non-toxic colorful modeling clay."
+  },
+  {
+    "title": "Toy Train Set",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 55.0,
+    "description": "Wooden train track set."
+  },
+  {
+    "title": "Water Squirt Gun",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 10.0,
+    "description": "High-capacity water blaster."
+  },
+  {
+    "title": "Coloring Book",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 8.0,
+    "description": "Jumbo kids coloring book."
+  },
+  {
+    "title": "Classic Yo-Yo",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 6.0,
+    "description": "Beginner friendly trick yo-yo."
+  },
+  {
+    "title": "Skipping Rope",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 9.0,
+    "description": "Adjustable jump rope for kids."
+  },
+  {
+    "title": "Toy Kitchen Set",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 85.0,
+    "description": "Pretend play kitchen with accessories."
+  },
+  {
+    "title": "Magnetic Tiles",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 40.0,
+    "description": "3D magnetic building blocks."
+  },
+  {
+    "title": "Rubik's Cube",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 12.0,
+    "description": "Classic 3x3 puzzle cube."
+  },
+  {
+    "title": "Toy Dinosaur",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 14.0,
+    "description": "Realistic T-Rex figure."
+  },
+  {
+    "title": "Rainbow Kite",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 16.0,
+    "description": "Large easy-fly outdoor kite."
+  },
+  {
+    "title": "Walkie Talkies",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 28.0,
+    "description": "2-way radio set for kids."
+  },
+  {
+    "title": "Finger Skateboard",
+    "brand": "PlayTime",
+    "category": "toys",
+    "price": 5.0,
+    "description": "Miniature tech deck skateboard."
+  },
+  {
+    "title": "Wooden Xylophone",
+    "brand": "KidJoy",
+    "category": "toys",
+    "price": 20.0,
+    "description": "Musical instrument toy for toddlers."
+  }
+]
