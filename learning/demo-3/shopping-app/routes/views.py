@@ -31,7 +31,7 @@ def analytics():
 
 @views.route("/add_to_cart/<int:product_id>", methods=["POST"])
 def add_to_cart(product_id):
-    item = CartItem(tracking_uuid=g.tracking_uuid, product_id=product_id)
+    item = CartItem(visitor_id=g.visitor_id, product_id=product_id)
     db.session.add(item)
     db.session.commit()
     return redirect(url_for("views.cart"))

@@ -89,7 +89,8 @@ def product(slug):
 @shop.route("/cart")
 def cart():
     tracking_id = request.cookies.get("tracking_uuid", "")
-    items = CartItem.query.filter_by(tracking_uuid=tracking_id).all()
+    visitor = Visitor.query.filter_by(tracking_uuid=tracking_id).first() if tracking_id else None
+    items = CartItem.query.filter_by(visitor_id=visitor.id).all() if visitor else []
     products = [item.product for item in items if item.product]
     total = sum(p.price for p in products)
     return jsonify({

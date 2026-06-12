@@ -40,7 +40,7 @@ class Visit(db.Model):
 class CartItem(db.Model):
     __tablename__ = "cart_items"
     id = db.Column(db.Integer, primary_key=True)
-    tracking_uuid = db.Column(db.String(36))
+    visitor_id = db.Column(db.Integer, db.ForeignKey("visitors.id"), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
 
     # Relationship
