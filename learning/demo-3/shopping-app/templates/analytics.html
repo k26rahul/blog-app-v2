@@ -16,6 +16,11 @@
                 word-break: break-all;
             }
 
+            .status-message {
+                color: blue;
+                font-weight: bold;
+            }
+
             /* Ensure long URLs break correctly */
             .stat-box {
                 border: 1px solid #ccc;
@@ -29,7 +34,7 @@
     <body>
         <div id="app">
             <h1>Welcome Admin</h1>
-            <p style="color: blue; font-weight: bold;">{{ statusMessage }}</p>
+            <p class="status-message">{{ statusMessage }}</p>
 
             <div class="stat-box">
                 <h3>Total Visitors</h3>

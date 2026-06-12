@@ -1,36 +1,84 @@
-{% extends 'base.html' %}
-{% block content %}
-  <h1>Welcome to the Demo Store</h1>
-  {% if recent %}
-    <div style="background: #f4f4f4; padding: 10px; margin-bottom: 15px;">
-      <h3 style="margin-top: 0;">Recommended: Pick Up Where You Left Off</h3>
-      <ul>
-        {% for item in recent %}
-          <li>
-            <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
-            <em style="color: gray; font-size: 0.8em;">({{ item.time | timeago }})</em>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Demo Store</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+      }
+      .recently-viewed {
+        background: #f4f4f4;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .section-title {
+        margin-top: 0;
+      }
+      .meta {
+        color: gray;
+        font-size: 0.8em;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a> | <a href="/cart">Cart</a> | <a href="/analytics" target="_blank">Analytics</a>
+    </nav>
+    <hr>
+
+    <div id="app">
+      <h1>Welcome to the Demo Store</h1>
+
+      <div v-if="recent.length" class="recently-viewed">
+        <h3 class="section-title">Recently Viewed</h3>
+        <ul>
+          <li v-for="item in recent" :key="item.slug">
+            <a :href="'/product/' + item.slug">{{ item.title }}</a>
+            <em class="meta">({{ item.time }})</em>
           </li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-  {% if frequent %}
-    <div style="background: #eef8ff; padding: 10px; margin-bottom: 20px;">
-      <h3 style="margin-top: 0;">Your Most Viewed Items</h3>
+        </ul>
+      </div>
+
+      <h2>All Stores</h2>
       <ul>
-        {% for item in frequent %}
-          <li>
-            <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
-            <em style="color: gray; font-size: 0.8em;">({{ item.count }} visits)</em>
-          </li>
-        {% endfor %}
+        <li v-for="store in stores" :key="store">
+          <a :href="'/store/' + store">{{ store.charAt(0).toUpperCase() + store.slice(1) }}</a>
+        </li>
       </ul>
+
+      <hr>
+      <footer class="meta">
+        <p v-if="is_new_visitor">Welcome new visitor!</p>
+        <p v-else>Hello again! Welcome back.</p>
+        <p>Debug Tracking UUID: {{ tracking_uuid }}</p>
+      </footer>
     </div>
-  {% endif %}
-  <h2>All Stores</h2>
-  <ul>
-    {% for store in stores %}
-      <li><a href="/store/{{ store }}">{{ store | capitalize }}</a></li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            stores: [],
+            recent: [],
+            tracking_uuid: '',
+            is_new_visitor: false,
+          };
+        },
+        async mounted() {
+          const res = await fetch('/api/index');
+          const data = await res.json();
+          this.stores = data.stores;
+          this.recent = data.recent;
+          this.tracking_uuid = data.tracking_uuid;
+          this.is_new_visitor = data.is_new_visitor;
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

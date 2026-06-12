@@ -1,10 +1,53 @@
-{% extends 'base.html' %}
-{% block content %}
-  <h1>{{ product.title }}</h1>
-  <p><strong>Brand:</strong> {{ product.brand }}</p>
-  <p><strong>Price:</strong> ${{ product.price }}</p>
-  <p>{{ product.description }}</p>
-  <form action="/add_to_cart/{{ product.id }}" method="POST">
-    <button type="submit">Add to Cart</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Demo Store</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a> | <a href="/cart">Cart</a> | <a href="/analytics" target="_blank">Analytics</a>
+    </nav>
+    <hr>
+
+    <div id="app">
+      <div v-if="product">
+        <h1>{{ product.title }}</h1>
+        <p><strong>Brand:</strong> {{ product.brand }}</p>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <form :action="'/add_to_cart/' + product.id" method="POST">
+          <button type="submit">Add to Cart</button>
+        </form>
+      </div>
+      <p v-else>Loading...</p>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            product: null,
+          };
+        },
+        async mounted() {
+          const slug = window.location.pathname.split('/').pop();
+          const res = await fetch('/api/product/' + slug);
+          if (res.ok) {
+            this.product = await res.json();
+          }
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

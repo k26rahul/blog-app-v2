@@ -1,14 +1,53 @@
-{% extends 'base.html' %}
-{% block content %}
-  <h1>Your Cart</h1>
-  <ul>
-    {% for p in products %}
-      <li>{{ p.title }} - ${{ p.price }}</li>
-    {% endfor %}
-  </ul>
-  <h3>Total: ${{ "%.2f"|format(total) }}</h3>
-  <hr>
-  <h3>Checkout</h3>
-  <input type="text" placeholder="Mobile Number (e.g., 555-0199)">
-  <button onclick="alert('Payment successful!')">Proceed to Payment</button>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Demo Store</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a> | <a href="/cart">Cart</a> | <a href="/analytics" target="_blank">Analytics</a>
+    </nav>
+    <hr>
+
+    <div id="app">
+      <h1>Your Cart</h1>
+      <ul>
+        <li v-for="p in products" :key="p.title">{{ p.title }} - ${{ p.price }}</li>
+      </ul>
+      <p v-if="!products.length">Your cart is empty.</p>
+      <h3>Total: ${{ total.toFixed(2) }}</h3>
+      <hr>
+      <h3>Checkout</h3>
+      <input type="text" placeholder="Mobile Number (e.g., 555-0199)">
+      <button onclick="alert('Payment successful!')">Proceed to Payment</button>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            products: [],
+            total: 0,
+          };
+        },
+        async mounted() {
+          const res = await fetch('/api/cart');
+          const data = await res.json();
+          this.products = data.products;
+          this.total = data.total;
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

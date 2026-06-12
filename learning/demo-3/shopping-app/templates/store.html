@@ -1,45 +1,82 @@
-{% extends 'base.html' %}
-{% block content %}
-  <h1>{{ category | capitalize }} Products</h1>
-  <div style="display: flex; gap: 20px;">
-    {% if recent %}
-      <div style="background: #fff3cd;
-                  padding: 10px;
-                  border: 1px solid #ffeeba;
-                  flex: 1">
-        <h4 style="margin-top: 0;">Recently Viewed in {{ category | capitalize }}</h4>
-        <ul style="padding-left: 20px; font-size: 0.9em;">
-          {% for item in recent %}
-            <li>
-              <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
-              <span style="color: gray;">({{ item.time | timeago }})</span>
-            </li>
-          {% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Demo Store</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+      }
+      .recently-viewed {
+        background: #f4f4f4;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .section-title {
+        margin-top: 0;
+      }
+      .meta {
+        color: gray;
+        font-size: 0.8em;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a> | <a href="/cart">Cart</a> | <a href="/analytics" target="_blank">Analytics</a>
+    </nav>
+    <hr>
+
+    <div id="app">
+      <h1>{{ categoryLabel }} Products</h1>
+
+      <div v-if="recent.length" class="recently-viewed">
+        <h3 class="section-title">Recently Viewed in {{ categoryLabel }}</h3>
+        <ul>
+          <li v-for="item in recent" :key="item.slug">
+            <a :href="'/product/' + item.slug">{{ item.title }}</a>
+            <span class="meta">({{ item.time }})</span>
+          </li>
         </ul>
       </div>
-    {% endif %}
-    {% if frequent %}
-      <div style="background: #d4edda;
-                  padding: 10px;
-                  border: 1px solid #c3e6cb;
-                  flex: 1">
-        <h4 style="margin-top: 0;">Top Visited in {{ category | capitalize }}</h4>
-        <ul style="padding-left: 20px; font-size: 0.9em;">
-          {% for item in frequent %}
-            <li>
-              <a href="/product/{{ item.product.id }}/{{ item.product.slug }}">{{ item.product.title }}</a>
-              <span style="color: gray;">({{ item.count }} visits)</span>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-  </div>
-  <hr>
-  <h3>All Items</h3>
-  <ul>
-    {% for p in products %}
-      <li><a href="/product/{{ p.id }}/{{ p.slug }}">{{ p.title }} - ${{ p.price }}</a></li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+
+      <h3>All Items</h3>
+      <ul>
+        <li v-for="p in products" :key="p.slug">
+          <a :href="'/product/' + p.slug">{{ p.title }} - ${{ p.price }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            category: '',
+            products: [],
+            recent: [],
+          };
+        },
+        computed: {
+          categoryLabel() {
+            if (!this.category) return '';
+            return this.category.charAt(0).toUpperCase() + this.category.slice(1);
+          }
+        },
+        async mounted() {
+          const category = window.location.pathname.split('/').pop();
+          const res = await fetch('/api/store/' + category);
+          const data = await res.json();
+          this.category = data.category;
+          this.products = data.products;
+          this.recent = data.recent;
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

@@ -1,25 +1,71 @@
-{% extends 'base.html' %}
-{% block content %}
-  <h2>{{ article.title }}</h2>
-  <p style="color: gray;">
-    Tags:
-    {% for c in article.target_categories %}
-      {{ c.name }}
-      {% if not loop.last %},{% endif %}
-    {% endfor %}
-    |
-    Brands:
-    {% for b in article.target_brands %}
-      {{ b.name }}
-      {% if not loop.last %},{% endif %}
-    {% endfor %}
-  </p>
-  <p>{{ article.content }}</p>
-  <hr>
-  <div style="background: #fff3cd;
-              padding: 15px;
-              border-left: 4px solid #ffeeba">
-    <strong>Sponsored:</strong> Looking to upgrade your setup?
-    <a href="{{ article.affiliate_link }}">Click here to view our recommended products!</a>
-  </div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lifestyle Daily</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fafafa;
+        }
+        .sponsored {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffeeba;
+        }
+        header {
+            border-bottom: 2px solid black;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        .debug-section {
+            font-size: 0.85em;
+            color: gray;
+            margin-top: 40px;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Lifestyle Daily</h1>
+      <a href="/">Home</a>
+    </header>
+
+    <div id="app">
+      <div v-if="article">
+        <h2>{{ article.title }}</h2>
+        <p v-html="article.content"></p>
+        <div class="debug-section">
+          Debug Info - Category: {{ article.category }} | Brand: {{ article.brand }}
+        </div>
+      </div>
+      <div v-else>
+        Loading...
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            article: null
+          }
+        },
+        async mounted() {
+          const slug = window.location.pathname.split('/').pop();
+          const res = await fetch('/api/articles/' + slug);
+          if (res.ok) {
+            this.article = await res.json();
+          }
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

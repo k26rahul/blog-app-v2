@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, send_from_directory, jsonify
 from models import db, Article
 from populate_db import populate_db
 
@@ -14,25 +14,40 @@ with app.app_context():
 
 @app.route("/")
 def index():
+    return send_from_directory("templates", "index.html")
+
+
+@app.route("/post/<slug>")
+def post(slug):
+    return send_from_directory("templates", "post.html")
+
+
+@app.route("/api/articles")
+def api_articles():
     articles = Article.query.all()
-    # Serialize for frontend filtering
     articles_data = []
     for a in articles:
         articles_data.append(
             {
                 "slug": a.slug,
                 "title": a.title,
-                "categories": [c.name for c in a.target_categories],
-                "brands": [b.name for b in a.target_brands],
+                "category": a.category.name,
+                "brand": a.brand.name,
             }
         )
-    return render_template("index.html", articles=articles, articles_json=articles_data)
+    return jsonify(articles_data)
 
 
-@app.route("/post/<slug>")
-def post(slug):
-    article = Article.query.filter_by(slug=slug).first_or_404()
-    return render_template("post.html", article=article)
+@app.route("/api/articles/<slug>")
+def api_article(slug):
+    a = Article.query.filter_by(slug=slug).first_or_404()
+    return jsonify({
+        "slug": a.slug,
+        "title": a.title,
+        "content": a.content,
+        "category": a.category.name,
+        "brand": a.brand.name,
+    })
 
 
 if __name__ == "__main__":

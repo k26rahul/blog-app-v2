@@ -1,60 +1,44 @@
-import random
+import json
+import os
 from models import Article, Category, Brand
-
-categories = ["grocery", "clothing", "electronics", "home-decor", "toys"]
-brands = [
-    "Nature Farm",
-    "FreshCo",
-    "BasicWear",
-    "UrbanStyle",
-    "TechPro",
-    "ElectroMax",
-    "HomeEssentials",
-    "CozyLiving",
-    "PlayTime",
-    "KidJoy",
-]
-topics = [
-    "Fashion",
-    "Tech Trends",
-    "Healthy Living",
-    "Parenting",
-    "Home Decor",
-    "Sports",
-    "Yoga",
-    "Politics",
-    "Finance",
-    "Travel",
-]
 
 
 def populate_db(db):
     if Article.query.count() > 0:
         return
 
-    # Pre-populate Categories and Brands
-    cat_objs = {c: Category(name=c) for c in categories}
-    brand_objs = {b: Brand(name=b) for b in brands}
+    # Load from articles.json
+    json_path = os.path.join(os.path.dirname(__file__), "articles.json")
+    with open(json_path, "r") as f:
+        articles_data = json.load(f)
 
-    for c in cat_objs.values():
-        db.session.add(c)
-    for b in brand_objs.values():
-        db.session.add(b)
+    cat_objs = {}
+    brand_objs = {}
 
-    for i in range(1, 51):
-        target_cat = random.choice(categories)
-        target_brand = random.choice(brands)
+    for item in articles_data:
+        c_name = item["category"]
+        b_name = item["brand"]
 
+        if c_name not in cat_objs:
+            cat_objs[c_name] = Category(name=c_name)
+            db.session.add(cat_objs[c_name])
+        
+        if b_name not in brand_objs:
+            brand_objs[b_name] = Brand(name=b_name)
+            db.session.add(brand_objs[b_name])
+
+    db.session.flush()
+
+    for item in articles_data:
         a = Article(
-            slug=f"post-{i}",
-            title=f"The Ultimate Guide to {random.choice(topics)} ({i})",
-            content="This is a great lifestyle article. We highly recommend checking out this amazing product that aligns perfectly with your lifestyle.",
-            affiliate_link=f"http://127.0.0.1:5000/store/{target_cat}?affiliation_id=lifestyle_blog",
+            slug=item["slug"],
+            title=item["title"],
+            content=item["content"]
         )
 
-        a.target_categories.append(cat_objs[target_cat])
-        a.target_brands.append(brand_objs[target_brand])
+        a.category = cat_objs[item["category"]]
+        a.brand = brand_objs[item["brand"]]
         db.session.add(a)
 
     db.session.commit()
-    print("Lifestyle database seeded successfully.")
+    print("Lifestyle database seeded successfully from articles.json.")

@@ -2,22 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# Association tables for Many-to-Many relationships
-article_category_link = db.Table(
-    "article_category_link",
-    db.Column("article_id", db.Integer, db.ForeignKey("articles.id"), primary_key=True),
-    db.Column(
-        "category_id", db.Integer, db.ForeignKey("categories.id"), primary_key=True
-    ),
-)
-
-article_brand_link = db.Table(
-    "article_brand_link",
-    db.Column("article_id", db.Integer, db.ForeignKey("articles.id"), primary_key=True),
-    db.Column("brand_id", db.Integer, db.ForeignKey("brands.id"), primary_key=True),
-)
-
-
 class Category(db.Model):
     __tablename__ = "categories"
     id = db.Column(db.Integer, primary_key=True)
@@ -36,18 +20,9 @@ class Article(db.Model):
     slug = db.Column(db.String(100), unique=True)
     title = db.Column(db.String(200))
     content = db.Column(db.Text)
-    affiliate_link = db.Column(db.String(255))
 
-    # Relationships
-    target_categories = db.relationship(
-        "Category",
-        secondary=article_category_link,
-        lazy="subquery",
-        backref=db.backref("articles", lazy=True),
-    )
-    target_brands = db.relationship(
-        "Brand",
-        secondary=article_brand_link,
-        lazy="subquery",
-        backref=db.backref("articles", lazy=True),
-    )
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    brand_id = db.Column(db.Integer, db.ForeignKey('brands.id'))
+
+    category = db.relationship("Category", backref=db.backref("articles", lazy=True))
+    brand = db.relationship("Brand", backref=db.backref("articles", lazy=True))

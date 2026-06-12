@@ -1,64 +1,101 @@
-{% extends 'base.html' %}
-{% block content %}
-  <div id="for-you-section"
-       style="display: none;
-              background: #eef8ff;
-              padding: 15px;
-              border: 1px solid #bce8f1;
-              margin-bottom: 20px">
-    <h2 style="margin-top: 0;">For You</h2>
-    <div style="display: flex; gap: 20px;">
-      <div style="flex: 1;">
-        <h4 style="margin: 0 0 10px 0;">Based on Categories</h4>
-        <ul id="cat-articles">
-        </ul>
-      </div>
-      <div style="flex: 1;">
-        <h4 style="margin: 0 0 10px 0;">Based on Brands</h4>
-        <ul id="brand-articles">
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <h2>Latest Posts</h2>
-  <ul>
-    {% for article in articles %}
-      <li><a href="/post/{{ article.slug }}">{{ article.title }}</a></li>
-    {% endfor %}
-  </ul>
-
-  <script>
-      const allArticles = {
-          {
-              articles_json | tojson | safe
-          }
-      };
-
-      async function fetchInterests() {
-          try {
-              const response = await fetch('http://127.0.0.1:5000/api/user_interests', {
-                  credentials: 'include'
-              });
-              const interests = await response.json();
-
-              if (interests.categories.length > 0 || interests.brands.length > 0) {
-                  document.getElementById('for-you-section').style.display = 'block';
-
-                  const catMatches = allArticles.filter(a => a.categories.some(c => interests.categories.includes(c))).slice(0, 3);
-                  document.getElementById('cat-articles').innerHTML = catMatches.length ?
-                      catMatches.map(a => `<li><a href="/post/${a.slug}">${a.title}</a></li>`).join('') :
-                      "<li>No matches</li>";
-
-                  const brandMatches = allArticles.filter(a => a.brands.some(b => interests.brands.includes(b))).slice(0, 3);
-                  document.getElementById('brand-articles').innerHTML = brandMatches.length ?
-                      brandMatches.map(a => `<li><a href="/post/${a.slug}">${a.title}</a></li>`).join('') :
-                      "<li>No matches</li>";
-              }
-          } catch (e) {
-              console.error("Ad targeting blocked or server offline", e);
-          }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lifestyle Daily</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background: #fafafa;
       }
-      fetchInterests();
-  </script>
-{% endblock %}
+      .for-you-section {
+        background: #eef8ff;
+        padding: 15px;
+        border: 1px solid #bce8f1;
+        margin-bottom: 20px;
+      }
+      header {
+        border-bottom: 2px solid black;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+      }
+      .for-you-title {
+        margin-top: 0;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Lifestyle Daily</h1>
+      <a href="/">Home</a>
+    </header>
+
+    <div id="app">
+      <div v-if="forYou.length" class="for-you-section">
+        <h2 class="for-you-title">For You</h2>
+        <ul>
+          <li v-for="a in forYou" :key="a.slug">
+            <a :href="'/post/' + a.slug">{{ a.title }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <h2>Latest Posts</h2>
+      <ul>
+        <li v-for="article in allArticles" :key="article.slug">
+          <a :href="'/post/' + article.slug">{{ article.title }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            allArticles: [],
+            interests: { categories: [] }
+          }
+        },
+        computed: {
+          forYou() {
+            const results = [];
+            // Iterate categories in recency order (most recent first)
+            for (const cat of this.interests.categories) {
+              const picks = this.allArticles
+                .filter(a => a.category === cat && !results.includes(a))
+                .slice(0, 2);
+              results.push(...picks);
+              if (results.length >= 5) break;
+            }
+            return results.slice(0, 5);
+          }
+        },
+        async mounted() {
+          await this.fetchArticles();
+          await this.fetchInterests();
+        },
+        methods: {
+          async fetchArticles() {
+            const res = await fetch('/api/articles');
+            this.allArticles = await res.json();
+          },
+          async fetchInterests() {
+            try {
+              const res = await fetch('http://127.0.0.1:5000/api/user_interests', {
+                credentials: 'include'
+              });
+              this.interests = await res.json();
+            } catch (e) {
+              console.error("Interests fetch failed or server offline", e);
+            }
+          }
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

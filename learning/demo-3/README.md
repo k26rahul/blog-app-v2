@@ -15,7 +15,7 @@ A simulated e-commerce platform (similar to Amazon or Flipkart) that meticulousl
 - **Why Track Users?** Real-world e-commerce platforms track navigation to understand inventory performance, calculate conversion rates, and push targeted recommendations that drive higher sales.
 - **The Tracking UUID:** When a user first lands on the site, the server generates a UUID (Universally Unique Identifier). This UUID is stored in the database as a new `Visitor` and placed in the user's browser via a `Set-Cookie` header.
 - **Logging Visits:** Every subsequent page load sends the cookie back. A `@before_request` interceptor logs the exact URL, page type, and product ID to a `Visit` table, tying the action to the user's UUID.
-- **Recommendation Engine:** The homepage and store pages query the user's personal `Visit` history. By aggregating this data, the app dynamically renders "Recently Viewed" and "Your Most Visited Items" sections.
+- **Recommendation Engine:** The homepage queries the user's personal `Visit` history and dynamically renders a "Recently Viewed" section.
 - **Cart State:** Because HTTP is stateless, the shopping cart relies entirely on the tracking UUID to remember which unauthenticated user added which items.
 
 ### Application Routes
@@ -27,7 +27,7 @@ A simulated e-commerce platform (similar to Amazon or Flipkart) that meticulousl
 - **`GET /cart`** : Displays the user's selected items and a mock checkout.
 - **`GET /analytics`** : A static HTML/Vue.js admin dashboard.
 - **`GET /api/analytics`** : Returns aggregated JSON statistics (Total visits, top products, active users) for the dashboard.
-- **`GET /api/user_interests`** : A CORS-enabled API designed for third parties. It reads the tracking cookie and returns the user's top 3 shopping categories and brands.
+- **`GET /api/user_interests`** : A CORS-enabled API designed for third parties. It reads the tracking cookie and returns the user's shopping categories, sorted by most recently visited.
 
 ---
 
@@ -43,7 +43,7 @@ A content-driven blog focusing on topics like fashion, tech, and health. This ap
 - When a user visits the Lifestyle App (`localhost`), a background JavaScript `fetch` request is made to the Shopping App's API (`127.0.0.1`).
 - The browser automatically attaches the user's Shopping App cookie to this cross-origin request.
 
-- **Targeted Advertising:** The Shopping App calculates the user's favorite categories and brands based on the cookie, and returns that data to the Lifestyle App. The Lifestyle App instantly re-filters its article database to show a personalized "For You" section, pushing affiliated articles that match the user's shopping habits to the top of the feed.
+- **Targeted Advertising:** The Shopping App calculates the user's shopping categories (sorted by recency) based on the cookie, and returns that data to the Lifestyle App. The Lifestyle App instantly re-filters its article database to show a personalized "For You" section - up to 2 articles per category, 5 articles total - with the most recently visited categories prioritised.
 
 ### Application Routes
 
